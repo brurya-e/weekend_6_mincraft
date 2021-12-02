@@ -1,4 +1,4 @@
-const ROWS = 25
+const ROWS = 20
 const COLUMNS = 20;
 const SHOVEL = 'shovel';
 const AXE = 'axe';
@@ -81,15 +81,15 @@ function clickOnBoard(e) {
     //reset prev
     activeTool.classList.remove('notClickable');
     //new click
-    let status = e.target.classList[e.target.classList.length - 1];
+    let statusCell = e.target.classList[e.target.classList.length - 1];
     if (activeToolName === INVETORY)
         invetoryActive(e);
     else {
-        if (!isClickable(status))
+        if (!isClickable(statusCell))
             activeTool.classList.add('notClickable')
 
         else
-            toolActive(e, status)
+            toolActive(e, statusCell)
     }
 }
 
@@ -101,13 +101,13 @@ function invetoryActive(e) {
     invetory.classList.add(prevInvertory);
 }
 
-function toolActive(e, status) {
-    e.target.classList.remove(status);
+function toolActive(e, statusCell) {
+    e.target.classList.remove(statusCell);
     prevInvertory = invetory.classList[invetory.classList.length - 1];
     if (prevInvertory != 'invetory')
         invetory.classList.remove(prevInvertory)
-    invetory.classList.add(status);
-    invetoryStack.push(status);
+    invetory.classList.add(statusCell);
+    invetoryStack.push(statusCell);
 }
 
 function isClickable(stsus) {

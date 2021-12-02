@@ -84,7 +84,7 @@
         width: 58%;
         display: grid;
         grid-template-columns: repeat(20, 1fr);
-        grid-template-rows: repeat(25, 1fr);
+        grid-template-rows: repeat(20, 1fr);
         position: relative;
         border: 1px solid red;
     }
