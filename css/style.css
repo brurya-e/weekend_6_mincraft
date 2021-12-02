@@ -58,15 +58,16 @@
             background-color: red;
         }
         .invetory {
-            width: 30px;
-            height: 30px;
+            width: 23%;
+            height: 5vh;
             border: 1px solid white;
         }
         .reset{
-            width: 100px;
-            height: 30px;
+            width: 70%;
+            height: 5vh;
             border: 1px solid white;
             background-color: crimson;
+            text-align: center
         }
 
     .game-container {
