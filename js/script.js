@@ -81,16 +81,15 @@ function clickOnBoard(e) {
     //reset prev
     activeTool.classList.remove('notClickable');
     //new click
+    let status = e.target.classList[e.target.classList.length - 1];
     if (activeToolName === INVETORY)
         invetoryActive(e);
     else {
         if (!isClickable(status))
             activeTool.classList.add('notClickable')
 
-        else {
-            let status = e.target.classList[e.target.classList.length - 1];
-            toolActive(e, stsus)
-        }
+        else
+            toolActive(e, status)
     }
 }
 
@@ -112,6 +111,7 @@ function toolActive(e, status) {
 }
 
 function isClickable(stsus) {
+    console.log(stsus, activeToolName);
     if ((stsus === 'leafs' && activeToolName === AXE) ||
         (stsus === 'wood' && activeToolName === AXE) ||
         (stsus === 'rock' && activeToolName === PICKAXE) ||
@@ -133,7 +133,12 @@ function reset() {
     //clear before drow
     deleteChild(gameBoard);
     invetoryStack = [];
-    invetory.classList.remove(invetory.classList[invetory.classList.length - 1])
+    let lastClassInvetory = invetory.classList[invetory.classList.length - 1]
+    if (lastClassInvetory != 'invetory')
+        invetory.classList.remove(lastClassInvetory)
+    activeTool.classList.remove('notClickable');
+    activeTool.classList.remove('btnClicked');
+
     init()
 }
 function init() {
