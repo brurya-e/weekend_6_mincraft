@@ -10,7 +10,7 @@ let activeToolName;
 let activeTool;
 
 const gameBoard = document.querySelector('.game-board');
-const invetory = document.querySelector('.invetory');
+const invetoryBtn = document.querySelector('.invetory');
 const shovelBtn = document.querySelector('.shovel');
 const pickAxeBtn = document.querySelector('.pickAxe');
 const axeBtn = document.querySelector('.axe');
@@ -22,9 +22,8 @@ pickAxeBtn.addEventListener('click', () => { btnClick(PICKAXE, pickAxeBtn) });
 axeBtn.addEventListener('click', () => { btnClick(AXE, axeBtn) });
 shovelBtn.addEventListener('click', () => { btnClick(SHOVEL, shovelBtn) });
 
-invetory.addEventListener('click', () => { btnClick(INVETORY, invetory) })
+invetoryBtn.addEventListener('click', () => { btnClick(INVETORY, invetoryBtn) })
 //TODO::drag and drop https://javascript.info/mouse-drag-and-drop
-
 
 const statusMatrix =
     [
@@ -49,7 +48,6 @@ const statusMatrix =
         ['earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth'],
         ['earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth'],
         ['earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth', 'earth'],
-
     ];
 
 function draw() {
@@ -94,31 +92,28 @@ function clickOnBoard(e) {
 }
 
 function invetoryActive(e) {
-    let lastInvertory = invetory.classList[invetory.classList.length - 1];
+    let lastInvertory = invetoryBtn.classList[invetoryBtn.classList.length - 1];
     e.target.classList.add(lastInvertory);
-    invetory.classList.remove(lastInvertory);
+    invetoryBtn.classList.remove(lastInvertory);
     let prevInvertory = invetoryStack.pop();
-    invetory.classList.add(prevInvertory);
+    invetoryBtn.classList.add(prevInvertory);
 }
 
 function toolActive(e, statusCell) {
     e.target.classList.remove(statusCell);
-    prevInvertory = invetory.classList[invetory.classList.length - 1];
+    prevInvertory = invetoryBtn.classList[invetoryBtn.classList.length - 1];
     if (prevInvertory != 'invetory')
-        invetory.classList.remove(prevInvertory)
-    invetory.classList.add(statusCell);
+        invetoryBtn.classList.remove(prevInvertory)
+    invetoryBtn.classList.add(statusCell);
     invetoryStack.push(statusCell);
 }
 
 function isClickable(stsus) {
-    console.log(stsus, activeToolName);
-    if ((stsus === 'leafs' && activeToolName === AXE) ||
+    return((stsus === 'leafs' && activeToolName === AXE) ||
         (stsus === 'wood' && activeToolName === AXE) ||
         (stsus === 'rock' && activeToolName === PICKAXE) ||
         (stsus === 'earth' && activeToolName === SHOVEL) ||
-        (stsus === 'topEarth' && activeToolName === SHOVEL))
-        return true;
-    return false;
+        (stsus === 'topEarth' && activeToolName === SHOVEL));
 }
 
 function deleteChild(element) {
@@ -133,14 +128,15 @@ function reset() {
     //clear before drow
     deleteChild(gameBoard);
     invetoryStack = [];
-    let lastClassInvetory = invetory.classList[invetory.classList.length - 1]
+    let lastClassInvetory = invetoryBtn.classList[invetoryBtn.classList.length - 1]
     if (lastClassInvetory != 'invetory')
-        invetory.classList.remove(lastClassInvetory)
+        invetoryBtn.classList.remove(lastClassInvetory)
     activeTool.classList.remove('notClickable');
     activeTool.classList.remove('btnClicked');
 
-    init()
+    init();
 }
+
 function init() {
     activeToolName = SHOVEL;
     activeTool = shovelBtn
